@@ -1,12 +1,16 @@
 var http = require('http');
 var fs = require('fs');
 
-var file = fs.readFileSync('index.html', 'utf-8');
-console.log("Index file read");
-
-http.createServer(function (req, res) {
-	res.writeHead(200);
-	res.end(file);
+http.createServer( function (req, res) {
+	fs.readFile('index.html', function(err, data) {
+		if(err) {
+			res.writteHead(404);
+			res.end(JSON.stringify(err));
+			return;
+		}
+		res.writeHead(200);
+		res.end(data);
+	});
 }).listen(process.env.PORT || 5000);
 
 if(typeof process.env.PORT !== 'undefined'){
