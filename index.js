@@ -1,9 +1,9 @@
 var http = require('http');
 var fs = require('fs');
+var file = fs.readFileSync('index.html', 'utf-8');
 
-fs.readFile('index.html', 'utf-8', function(err, data) {
-        if(err) {
-                return console.log(err);
-        }
-	response.send(data);
-});
+http.createServer(function (req, res) {
+	res.wtireHead(200);
+	res.end(file);
+	});
+}).listen(5000);
